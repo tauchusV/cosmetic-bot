@@ -34,6 +34,7 @@ def main():
     )
 
     application.add_handler(conv_handler)
+    application.add_handler(CallbackQueryHandler(cancel_or_restart, pattern=r"^restart$"))
     application.add_handler(CommandHandler("help", lambda u, c: u.message.reply_text(
         "📌 Как пользоваться:\n"
         "1. Нажмите /start\n"

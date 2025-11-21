@@ -197,7 +197,7 @@ async def cancel_or_restart(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
     if query.data == "restart":
-        return await start_handler(query, context)
+        return await start_handler(update, context)
     return ConversationHandler.END
 
 # Обработчик для снятия лимита (для админов)
