@@ -3,7 +3,7 @@ from telegram.ext import ContextTypes, ConversationHandler
 from telegram.constants import ParseMode
 import logging
 from utils.limits import is_limit_exceeded, increment_count
-from utils.ocr import extract_text_from_photo
+from utils.orc import extract_text_from_photo
 from utils.analysis import parse_ingredients, analyze_composition
 from config import ADMIN_USERNAME
 
