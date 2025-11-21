@@ -2,10 +2,10 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes, ConversationHandler
 from telegram.constants import ParseMode
 import logging
-from utils.limits import is_limit_exceeded, increment_count
+from utils.limits import is_limit_exceeded, increment_count, grant_subscription
 from utils.orc import extract_text_from_photo
 from utils.analysis import parse_ingredients, analyze_composition
-from config import ADMIN_USERNAME
+from config import ADMIN_USERNAME, ADMINS
 
 logger = logging.getLogger(__name__)
 
@@ -200,3 +200,23 @@ async def cancel_or_restart(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if query.data == "restart":
         return await start_handler(query, context)
     return ConversationHandler.END
+
+# Обработчик для снятия лимита (для админов)
+async def lift_limit_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id not in ADMINS:
+        await update.message.reply_text("У вас нет прав для этой команды.")
+        return
+    # Извлекаем user_id из сообщения, например: /lift 123456789
+    args = context.args
+    if len(args) == 0:
+        await update.message.reply_text("Укажите user_id: /lift <user_id>")
+        return
+    try:
+        target_user_id = int(args[0])
+        # Предоставляем подписку
+        if grant_subscription(target_user_id):
+            await update.message.reply_text(f"Подписка для пользователя {target_user_id} активирована.")
+        else:
+            await update.message.reply_text("Не удалось активировать подписку (Redis недоступен).")
+    except ValueError:
+        await update.message.reply_text("Неверный user_id.")

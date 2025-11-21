@@ -5,3 +5,6 @@ REDIS_DB = 0
 
 # Админ-аккаунт студии (username БЕЗ @)
 ADMIN_USERNAME = "vivi_hairADM"
+
+# Список ID админов для команды /lift
+ADMINS = []  # Добавьте сюда user_id админов, например [123456789]

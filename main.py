@@ -3,7 +3,7 @@ from telegram.ext import Application, CommandHandler, CallbackQueryHandler, Mess
 from config import BOT_TOKEN
 from handlers.conversation import (
     start_handler, category_handler, subtype_handler,
-    goal_handler, ingredients_handler, cancel_or_restart,
+    goal_handler, ingredients_handler, cancel_or_restart, lift_limit_handler,
     SELECT_CATEGORY, SELECT_SUBTYPE, SELECT_GOAL, UPLOAD_INGREDIENTS
 )
 from telegram.ext import ConversationHandler
@@ -43,6 +43,7 @@ def main():
         "5. Получите анализ!\n\n"
         "Лимит: 5 бесплатных запросов в сутки."
     )))
+    application.add_handler(CommandHandler("lift", lift_limit_handler))
 
     print("✅ Бот запущен!")
     application.run_polling()
