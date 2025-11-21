@@ -184,8 +184,7 @@ async def ingredients_handler(update: Update, context: ContextTypes.DEFAULT_TYPE
         "\n".join(lines),
         parse_mode=ParseMode.MARKDOWN,
         reply_markup=InlineKeyboardMarkup([
-            [make_contact_button("Хочу разбор ухода")],
-            [InlineKeyboardButton("🔄 Заново", callback_data="restart")]
+            [InlineKeyboardButton("🔄 Заново", callback_data="restart"), make_contact_button("Хочу разбор ухода")],
         ])
     )
 
