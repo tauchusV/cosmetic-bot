@@ -19,16 +19,6 @@ def get_daily_count(user_id: int) -> int:
     key = f"limit:{user_id}:{date.today()}"
     return int(r.get(key) or 0)
 
-def increment_count(user_id: int) -> bool:
-    if not REDIS_AVAILABLE:
-        return True  # Позволяем продолжать
-    key = f"limit:{user_id}:{date.today()}"
-    pipe = r.pipeline()
-    current = pipe.get(key)
-    pipe.incr(key)
-    pipe.expire(key, 86400)  # 24h
-    pipe.execute()
-    return get_daily_count(user_id) <= 5
 
 def has_subscription(user_id: int) -> bool:
     if not REDIS_AVAILABLE:

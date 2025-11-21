@@ -29,6 +29,7 @@ def main():
         fallbacks=[
             CallbackQueryHandler(cancel_or_restart, pattern=r"^restart$")
         ],
+        per_message=True,
         per_chat=True,
         per_user=True
     )
@@ -46,7 +47,7 @@ def main():
     )))
     application.add_handler(CommandHandler("lift", lift_limit_handler))
 
-    print("✅ Бот запущен!")
+    print("Бот запущен!")
     application.run_polling()
 
 if __name__ == "__main__":
