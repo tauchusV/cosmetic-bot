@@ -7,4 +7,4 @@ REDIS_DB = 0
 ADMIN_USERNAME = "vivi_hairADM"
 
 # Список ID админов для команды /lift
-ADMINS = []  # Добавьте сюда user_id админов, например [123456789]
+ADMINS = ["vivi_hairADM"]  # Добавьте сюда user_id админов, например [123456789]
